@@ -4,7 +4,7 @@ import Profile from '../components/profile/Profile';
 
 class Home extends Component {
   state = {
-    link: "map",
+    link: 'map',
   };
 
   goTo = (link) => {
