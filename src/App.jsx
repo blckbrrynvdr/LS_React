@@ -19,12 +19,12 @@ class App extends React.Component {
   };
 
   render() {
-    if (!this.state.auth) {
-      return <Welcome auth={this.onLogin}></Welcome>;
-    }
-    if (this.state.auth) {
-      return <Home logout={this.logout}></Home>;
-    }
+    return (
+      <>
+        { !this.state.auth && <Welcome auth={this.onLogin} /> }
+        { this.state.auth && <Home logout={this.logout} /> }
+      </>
+    )
   }
 }
 

@@ -1,26 +1,35 @@
+import Input from "../input/Common";
+
 const Form = (props) => {
   
   return (
-    <form className="auth-form" onSubmit={props.submitHandler}>
-      <h2 className="auth-form__title">Регистрация</h2>
-      <div className="auth-form__row">
-        <label htmlFor="email">Email*</label>
-        <input id="email" type="email" name="email" />
-      </div>
-      <div className="auth-form__row">
-        <label htmlFor="email">Как вас зовут?*</label>
-        <input id="name" type="text" name="name" />
-      </div>
-
-      <div className="auth-form__row">
-        <label htmlFor="password">Придумайте пароль*</label>
-        <input id="password" type="password" name="password" />
-      </div>
-
-      <div className="auth-form__row">
+    <form className="register-form" onSubmit={props.submitHandler}>
+      <h2 className="register-form__title">Регистрация</h2>
+      <Input
+        id={"email"}
+        labelText={"Email*"}
+        className={"register-form__row"}
+        type={"email"}
+        name={"email"}
+      />
+      <Input
+        id={"name"}
+        labelText={"Как вас зовут?*"}
+        className={"register-form__row"}
+        type={"text"}
+        name={"email"}
+      />
+      <Input
+        id={"password"}
+        labelText={"Придумайте пароль*"}
+        className={"register-form__row"}
+        type={"password"}
+        name={"password"}
+      />
+      <div className="register-form__row">
         <button type="submit">Зарегистрироваться</button>
       </div>
-      <div className="auth-form__row">
+      <div className="register-form__row">
         Уже зарегестрированны?  <button type="button" onClick={props.authHandler}>Войти</button>
       </div>
     </form>

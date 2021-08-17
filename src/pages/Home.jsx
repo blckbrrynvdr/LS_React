@@ -1,35 +1,47 @@
-import { React, Component } from 'react';
-import Map from '../components/map/Map';
-import Profile from '../components/profile/Profile';
+import { React, Component } from "react";
+import Map from "../components/map/Map";
+import Profile from "../components/profile/Profile";
+import Nav from "../components/nav/Nav";
 
 class Home extends Component {
   state = {
-    link: 'map',
+    link: "map",
   };
+
+  pepa = 'popo';
 
   goTo = (link) => {
     this.setState({ link: link });
   };
 
   render() {
-    const links = {
-      map: <Map></Map>,
-      profile: <Profile></Profile>,
-    };
+    const navButtons = [
+      {
+        id: 1,
+        name: 'Карта',
+        link: 'map',
+        clickHandler: this.goTo,
+      },
+      {
+        id: 2,
+        name: 'Профиль',
+        link: 'profile',
+        clickHandler: this.goTo,
+      },
+      {
+        id: 3,
+        name: 'Выйти',
+        clickHandler: this.props.logout,
+      },
+    ];
+
     return (
       <div className="home">
-        <nav className="nav">
-          <button className="nav__button" onClick={() => { this.goTo("map") }}>
-            Карта
-          </button>
-          <button className="nav__button" onClick={() => { this.goTo("profile") }}>
-            Профиль
-          </button>
-          <button className="nav__button" onClick={this.props.logout}>
-            Выйти
-          </button>
-        </nav>
-        <div className="home__sections">{links[this.state.link]}</div>
+        <Nav buttons={ navButtons } />
+        <div className="home__sections">
+          {this.state.link === "map" && <Map navigate={this.goTo} />}
+          {this.state.link === "profile" && <Profile />}
+        </div>
       </div>
     );
   }
