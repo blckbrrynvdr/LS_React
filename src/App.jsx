@@ -1,11 +1,11 @@
-import React from 'react';
-import Home from './pages/Home';
-import Welcome from './pages/Welcome';
-import './App.css';
+import React from "react";
+import Home from "./pages/Home";
+import Welcome from "./pages/Welcome";
+import "./App.css";
 
 class App extends React.Component {
   state = {
-    page: 'home',
+    page: "home",
     auth: false,
   };
 
@@ -21,10 +21,10 @@ class App extends React.Component {
   render() {
     return (
       <>
-        { !this.state.auth && <Welcome auth={this.onLogin} /> }
-        { this.state.auth && <Home logout={this.logout} /> }
+        {!this.state.auth && <Welcome auth={this.onLogin} />}
+        {this.state.auth && <Home logout={this.logout} />}
       </>
-    )
+    );
   }
 }
 

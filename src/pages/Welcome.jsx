@@ -1,10 +1,10 @@
-import { React, Component } from 'react';
-import AuthForm from '../components/auth/Form';
-import RegisterForm from '../components/register/Form';
+import { React, Component } from "react";
+import AuthForm from "../components/auth/Form";
+import RegisterForm from "../components/register/Form";
 
 class Welcome extends Component {
   state = {
-    link: 'login',
+    link: "login",
   };
 
   goTo = (link) => {
@@ -17,14 +17,14 @@ class Welcome extends Component {
         <AuthForm
           submitHandler={this.props.auth}
           registerHandler={() => {
-            this.goTo('register');
+            this.goTo("register");
           }}
         ></AuthForm>
       ),
       register: (
         <RegisterForm
           submitHandler={this.props.auth}
-          authHandler={() => this.goTo('login')}
+          authHandler={() => this.goTo("login")}
         ></RegisterForm>
       ),
     };

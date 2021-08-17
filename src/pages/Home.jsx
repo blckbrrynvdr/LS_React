@@ -8,7 +8,7 @@ class Home extends Component {
     link: "map",
   };
 
-  pepa = 'popo';
+  pepa = "popo";
 
   goTo = (link) => {
     this.setState({ link: link });
@@ -18,26 +18,26 @@ class Home extends Component {
     const navButtons = [
       {
         id: 1,
-        name: 'Карта',
-        link: 'map',
+        name: "Карта",
+        link: "map",
         clickHandler: this.goTo,
       },
       {
         id: 2,
-        name: 'Профиль',
-        link: 'profile',
+        name: "Профиль",
+        link: "profile",
         clickHandler: this.goTo,
       },
       {
         id: 3,
-        name: 'Выйти',
+        name: "Выйти",
         clickHandler: this.props.logout,
       },
     ];
 
     return (
       <div className="home">
-        <Nav buttons={ navButtons } />
+        <Nav buttons={navButtons} />
         <div className="home__sections">
           {this.state.link === "map" && <Map navigate={this.goTo} />}
           {this.state.link === "profile" && <Profile />}

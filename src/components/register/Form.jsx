@@ -1,7 +1,6 @@
 import Input from "../input/Common";
 
 const Form = (props) => {
-  
   return (
     <form className="register-form" onSubmit={props.submitHandler}>
       <h2 className="register-form__title">Регистрация</h2>
@@ -30,7 +29,10 @@ const Form = (props) => {
         <button type="submit">Зарегистрироваться</button>
       </div>
       <div className="register-form__row">
-        Уже зарегестрированны?  <button type="button" onClick={props.authHandler}>Войти</button>
+        Уже зарегестрированны?{" "}
+        <button type="button" onClick={props.authHandler}>
+          Войти
+        </button>
       </div>
     </form>
   );
