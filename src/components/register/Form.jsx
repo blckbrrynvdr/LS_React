@@ -1,8 +1,19 @@
+import { Component } from "react";
+import { withAuth } from "../context/withAuth";
 import Input from "../input/Common";
 
-const Form = (props) => {
+class Form extends Component {
+
+  authenticate = (event) => {
+    event.preventDefault();
+
+    const { email, password } = event.target;
+    this.props.logIn(email.value, password.value);
+  }
+
+  render () {
   return (
-    <form className="register-form" onSubmit={props.submitHandler}>
+    <form className="register-form" onSubmit={this.authenticate}>
       <h2 className="register-form__title">Регистрация</h2>
       <Input
         id={"email"}
@@ -16,7 +27,7 @@ const Form = (props) => {
         labelText={"Как вас зовут?*"}
         className={"register-form__row"}
         type={"text"}
-        name={"email"}
+        name={"name"}
       />
       <Input
         id={"password"}
@@ -30,12 +41,13 @@ const Form = (props) => {
       </div>
       <div className="register-form__row">
         Уже зарегестрированны?{" "}
-        <button type="button" onClick={props.authHandler}>
+        <button type="button" onClick={this.props.authRoute}>
           Войти
         </button>
       </div>
     </form>
-  );
+  );}
 };
 
 export default Form;
+export const RegisterFormWithAuth = withAuth(Form);

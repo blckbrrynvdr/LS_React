@@ -1,6 +1,6 @@
 import { React, Component } from "react";
-import AuthForm from "../components/auth/Form";
-import RegisterForm from "../components/register/Form";
+import AuthForm, { AuthFormWithAuth } from "../components/auth/Form";
+import RegisterForm, { RegisterFormWithAuth } from "../components/register/Form";
 
 class Welcome extends Component {
   state = {
@@ -13,19 +13,9 @@ class Welcome extends Component {
 
   render() {
     const components = {
-      login: (
-        <AuthForm
-          submitHandler={this.props.auth}
-          registerHandler={() => {
-            this.goTo("register");
-          }}
-        ></AuthForm>
-      ),
+      login: <AuthFormWithAuth registerRoute={() => this.goTo("register")} />,
       register: (
-        <RegisterForm
-          submitHandler={this.props.auth}
-          authHandler={() => this.goTo("login")}
-        ></RegisterForm>
+        <RegisterFormWithAuth authRoute={() => this.goTo("login")} />
       ),
     };
 

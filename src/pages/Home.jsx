@@ -2,13 +2,12 @@ import { React, Component } from "react";
 import Map from "../components/map/Map";
 import Profile from "../components/profile/Profile";
 import Nav from "../components/nav/Nav";
+import { withAuth } from "../components/context/withAuth";
 
 class Home extends Component {
   state = {
     link: "map",
   };
-
-  pepa = "popo";
 
   goTo = (link) => {
     this.setState({ link: link });
@@ -31,7 +30,7 @@ class Home extends Component {
       {
         id: 3,
         name: "Выйти",
-        clickHandler: this.props.logout,
+        clickHandler: this.props.logOut,
       },
     ];
 
@@ -39,7 +38,7 @@ class Home extends Component {
       <div className="home">
         <Nav buttons={navButtons} />
         <div className="home__sections">
-          {this.state.link === "map" && <Map navigate={this.goTo} />}
+          {this.state.link === "map" && <Map />}
           {this.state.link === "profile" && <Profile />}
         </div>
       </div>
@@ -48,3 +47,4 @@ class Home extends Component {
 }
 
 export default Home;
+export const HomeWithAuth = withAuth(Home);
