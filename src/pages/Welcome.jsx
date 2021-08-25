@@ -1,6 +1,7 @@
 import { React, Component } from "react";
-import AuthForm, { AuthFormWithAuth } from "../components/auth/Form";
-import RegisterForm, { RegisterFormWithAuth } from "../components/register/Form";
+import { AuthFormWithAuth } from "../components/auth/Form";
+import {Logo} from 'loft-taxi-mui-theme';
+import { RegisterFormWithAuth } from "../components/register/Form";
 
 class Welcome extends Component {
   state = {
@@ -14,17 +15,13 @@ class Welcome extends Component {
   render() {
     const components = {
       login: <AuthFormWithAuth registerRoute={() => this.goTo("register")} />,
-      register: (
-        <RegisterFormWithAuth authRoute={() => this.goTo("login")} />
-      ),
+      register:  <RegisterFormWithAuth authRoute={() => this.goTo("login")} /> ,
     };
 
     return (
       <>
         <div className="welcome">
-          <div className="logo">
-            <img src="" alt="" className="logo" />
-          </div>
+          <Logo />
           <div className="welcome__container">
             {components[this.state.link]}
           </div>

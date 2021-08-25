@@ -1,6 +1,7 @@
 import { Component } from "react";
 import Input from "../input/Common";
 import { withAuth } from "../context/withAuth";
+import { Button, Link, FormLabel } from "@material-ui/core";
 
 class Form extends Component {
 
@@ -14,33 +15,35 @@ class Form extends Component {
   render() {
     return (
       <form className="auth-form" onSubmit={this.authenticate}>
-        <h2 className="auth-form__title">Войти</h2>
-        <Input
-          id={"email"}
-          labelText={"Email:"}
-          className={"auth-form__row"}
-          type={"email"}
-          name={"email"}
-        />
-        <Input
-          id={"password"}
-          labelText={"Password:"}
-          className={"auth-form__row"}
-          type={"password"}
-          name={"password"}
-        />
-        <div className="auth-form__row">
-          <button type="button">Забыли пароль?</button>
-        </div>
-        <div className="auth-form__row">
-          <button type="submit">Войти</button>
-        </div>
-        <div className="auth-form__row">
-          Новый пользователь?
-          <button type="button" onClick={this.props.registerRoute}>
-            Регистрация
-          </button>
-        </div>
+        <FormLabel>
+          <h2 className="auth-form__title">Войти</h2>
+          <Input
+            id={"email"}
+            labelText={"Email:"}
+            className={"auth-form__row"}
+            type={"email"}
+            name={"email"}
+          />
+          <Input
+            id={"password"}
+            labelText={"Password:"}
+            className={"auth-form__row"}
+            type={"password"}
+            name={"password"}
+          />
+          <div className="auth-form__row">
+            <Link color="primary" type="button">Забыли пароль?</Link>
+          </div>
+          <div className="auth-form__row">
+            <Button color="primary" type="submit" data-testid="submitButton">Войти</Button>
+          </div>
+          <div className="auth-form__row">
+            Новый пользователь?
+            <Link color="primary" type="button" onClick={this.props.registerRoute}>
+              Регистрация
+            </Link>
+          </div>
+        </FormLabel>
       </form>
     );
   }

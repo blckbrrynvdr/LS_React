@@ -1,5 +1,5 @@
 import React from "react";
-import Home, { HomeWithAuth } from "./pages/Home";
+import { HomeWithAuth } from "./pages/Home";
 import Welcome from "./pages/Welcome";
 import "./App.css";
 import { withAuth } from "./components/context/withAuth";
