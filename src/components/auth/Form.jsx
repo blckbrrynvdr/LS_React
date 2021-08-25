@@ -1,20 +1,21 @@
-import { Component } from "react";
+import React, { useContext } from "react";
 import Input from "../input/Common";
-import { withAuth } from "../context/withAuth";
 import { Button, Link, FormLabel } from "@material-ui/core";
+import { AuthContext } from '../context/withAuth';
 
-class Form extends Component {
+const Form = (props) => {
 
-  authenticate = (event) => {
+  const authHook = useContext(AuthContext);
+
+  const authenticate = (event) => {
     event.preventDefault();
-
+    
     const { email, password } = event.target;
-    this.props.logIn(email.value, password.value);
+    authHook.logIn(email.value, password.value)
   }
 
-  render() {
     return (
-      <form className="auth-form" onSubmit={this.authenticate}>
+      <form className="auth-form" onSubmit={authenticate}>
         <FormLabel>
           <h2 className="auth-form__title">Войти</h2>
           <Input
@@ -39,7 +40,7 @@ class Form extends Component {
           </div>
           <div className="auth-form__row">
             Новый пользователь?
-            <Link color="primary" type="button" onClick={this.props.registerRoute}>
+            <Link color="primary" type="button" onClick={props.registerRoute}>
               Регистрация
             </Link>
           </div>
@@ -47,7 +48,5 @@ class Form extends Component {
       </form>
     );
   }
-}
 
 export default Form;
-export const AuthFormWithAuth = withAuth(Form);
