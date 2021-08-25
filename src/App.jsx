@@ -3,8 +3,14 @@ import { HomeWithAuth } from "./pages/Home";
 import Welcome from "./pages/Welcome";
 import "./App.css";
 import { withAuth } from "./components/context/withAuth";
+import PropTypes from "prop-types";
 
 class App extends React.Component {
+
+  static propTypes = {
+    isLoggedIn: PropTypes.bool
+  }
+
   state = {
     page: "home",
     auth: false,
@@ -22,8 +28,6 @@ class App extends React.Component {
   render() {
     return (
       <>
-      {/* {!this.state.auth && <Welcome auth={this.onLogin} />}
-      {this.state.auth && <Home logout={this.logout} />} */}
         {!this.props.isLoggedIn && <Welcome />}
         {this.props.isLoggedIn && <HomeWithAuth />}
       </>

@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import Input from "../input/Common";
 import { Button, Link, FormLabel } from "@material-ui/core";
 import { AuthContext } from '../context/withAuth';
+import PropTypes from "prop-types";
 
 const Form = (props) => {
 
@@ -48,5 +49,10 @@ const Form = (props) => {
       </form>
     );
   }
+
+  
+Form.propTypes = {
+  registerRoute: PropTypes.func
+}
 
 export default Form;

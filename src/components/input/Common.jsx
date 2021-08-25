@@ -1,6 +1,7 @@
 import {Input, InputLabel} from "@material-ui/core";
+import PropTypes from "prop-types";
 
-const Nav = (props) => {
+const CommonInput = (props) => {
   return (
     <div className={`commonInput ${props.className}`}>
       <InputLabel htmlFor={props.id}>{props.labelText}</InputLabel>
@@ -9,4 +10,13 @@ const Nav = (props) => {
   );
 };
 
-export default Nav;
+
+CommonInput.propTypes = {
+  className: PropTypes.string,
+  labelText: PropTypes.string,
+  id: PropTypes.string,
+  type: PropTypes.string,
+  name: PropTypes.string,
+}
+
+export default CommonInput;

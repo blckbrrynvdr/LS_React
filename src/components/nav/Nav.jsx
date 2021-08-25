@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const Nav = (props) => {
   return (
     <nav className="nav">
@@ -15,5 +17,15 @@ const Nav = (props) => {
     </nav>
   );
 };
+
+Nav.propTypes = {
+  buttons: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    link: PropTypes.string,
+    clickHandler: PropTypes.func.isRequired,
+  })).isRequired,
+};
+
 
 export default Nav;

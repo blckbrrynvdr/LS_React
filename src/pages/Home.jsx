@@ -3,8 +3,14 @@ import Map from "../components/map/Map";
 import Profile from "../components/profile/Profile";
 import Nav from "../components/nav/Nav";
 import { withAuth } from "../components/context/withAuth";
+import PropTypes from "prop-types";
 
 class Home extends Component {
+
+  static propTypes = {
+    logOut: PropTypes.func,
+  }
+
   state = {
     link: "map",
   };

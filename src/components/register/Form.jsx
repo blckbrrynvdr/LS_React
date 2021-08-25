@@ -2,8 +2,14 @@ import { Component } from "react";
 import { withAuth } from "../context/withAuth";
 import Input from "../input/Common";
 import { Button, Link, FormLabel } from "@material-ui/core";
+import PropTypes from "prop-types";
 
 class Form extends Component {
+
+  static propTypes = {
+    authRoute: PropTypes.func,
+    logIn: PropTypes.func,
+  }
 
   authenticate = (event) => {
     event.preventDefault();
