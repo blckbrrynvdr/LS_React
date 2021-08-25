@@ -3,6 +3,7 @@ import { withAuth } from "../context/withAuth";
 import Input from "../input/Common";
 import { Button, Link } from "@material-ui/core";
 import PropTypes from "prop-types";
+import "./Form.css";
 
 class Form extends Component {
 
@@ -20,7 +21,7 @@ class Form extends Component {
 
   render () {
     return (
-      <form className="register-form" onSubmit={this.authenticate}>
+      <form className="register-form common-form" onSubmit={this.authenticate}>
         <h2 className="register-form__title">Регистрация</h2>
         <Input
           id={"email"}
@@ -39,16 +40,16 @@ class Form extends Component {
         <Input
           id={"password"}
           labelText={"Придумайте пароль*"}
-          className={"register-form__row"}
+          className={"register-form__row register-form__row_margin-bottom__big"}
           type={"password"}
           name={"password"}
         />
         <div className="register-form__row">
-          <Button color="primary" type="submit">Зарегистрироваться</Button>
+          <Button className="button-common register-form__button" color="primary" type="submit">Зарегистрироваться</Button>
         </div>
-        <div className="register-form__row">
-          Уже зарегестрированны?
-          <Link color="primary" type="button" onClick={this.props.authRoute}>
+        <div className="register-form__row register-form__newbee-line">
+          Уже зарегестрированны?&nbsp;
+          <Link className="uncommon-link" color="primary" type="button" onClick={this.props.authRoute}>
             Войти
           </Link>
         </div>
