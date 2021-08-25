@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { withAuth } from "../context/withAuth";
 import Input from "../input/Common";
-import { Button, Link, FormLabel } from "@material-ui/core";
+import { Button, Link } from "@material-ui/core";
 import PropTypes from "prop-types";
 
 class Form extends Component {
@@ -19,9 +19,8 @@ class Form extends Component {
   }
 
   render () {
-  return (
-    <form className="register-form" onSubmit={this.authenticate}>
-      <FormLabel>
+    return (
+      <form className="register-form" onSubmit={this.authenticate}>
         <h2 className="register-form__title">Регистрация</h2>
         <Input
           id={"email"}
@@ -53,9 +52,9 @@ class Form extends Component {
             Войти
           </Link>
         </div>
-      </FormLabel>
-    </form>
-  );}
+      </form>
+    );
+  }
 };
 
 export default Form;

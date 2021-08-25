@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 const Nav = (props) => {
   return (
-    <nav className="nav">
+    <nav data-testid="nav" className="nav">
       {props.buttons.map((button) => (
         <button
           className="nav__button"

@@ -1,5 +1,4 @@
 import { React, Component } from "react";
-import {Logo} from 'loft-taxi-mui-theme';
 import { RegisterFormWithAuth } from "../components/register/Form";
 
 import AuthForm from '../components/auth/Form';
@@ -22,7 +21,9 @@ class Welcome extends Component {
     return (
       <>
         <div className="welcome">
-          <Logo />
+          <div className="welcome__logo-box">
+            
+          </div>
           <div className="welcome__container">
             {components[this.state.link]}
           </div>
