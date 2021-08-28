@@ -7,6 +7,6 @@ describe("Auth form", () => {
         const { getByLabelText, getByTestId } = render(<Form />);
         expect(getByLabelText('Email:')).toHaveAttribute('name', 'email');
         expect(getByLabelText('Password:')).toHaveAttribute('name', 'password');
-        expect(getByTestId('submitButton')).toBeInTheDocument();
+        expect(getByTestId('submitButton')).toBeInTheDocument(); 
     });
 });

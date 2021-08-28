@@ -1,19 +1,19 @@
 import React, { useContext } from "react";
 import Input from "../input/Common";
 import { Button, Link } from "@material-ui/core";
-import { AuthContext } from '../context/withAuth';
+import { AuthContext } from '../../context/auth';
 import PropTypes from "prop-types";
 import "./Form.css";
 
 const Form = (props) => {
 
-  const authHook = useContext(AuthContext);
+  const {logIn} = useContext(AuthContext);
 
   const authenticate = (event) => {
     event.preventDefault();
     
     const { email, password } = event.target;
-    authHook.logIn(email.value, password.value)
+    logIn(email.value, password.value)
   }
 
     return (

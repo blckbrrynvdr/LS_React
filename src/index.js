@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { AuthProvider } from './components/context/withAuth';
+import { AuthProvider } from './context/auth';
 import { theme } from "loft-taxi-mui-theme"; 
 import { MuiThemeProvider } from "@material-ui/core/styles";
 

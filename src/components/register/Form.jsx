@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { withAuth } from "../context/withAuth";
+import { withAuth } from "../../context/auth";
 import Input from "../input/Common";
 import { Button, Link } from "@material-ui/core";
 import PropTypes from "prop-types";
@@ -45,7 +45,12 @@ class Form extends Component {
           name={"password"}
         />
         <div className="register-form__row">
-          <Button className="button-common register-form__button" color="primary" type="submit">Зарегистрироваться</Button>
+          <Button 
+            className="button-common register-form__button" 
+            color="primary" 
+            type="submit"
+            data-testid="submitButton"
+           >Зарегистрироваться</Button>
         </div>
         <div className="register-form__row register-form__newbee-line">
           Уже зарегестрированны?&nbsp;
