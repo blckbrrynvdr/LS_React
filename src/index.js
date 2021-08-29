@@ -2,12 +2,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './Nested';
+import {PrivateExample} from './Private';
 import { BrowserRouter } from 'react-router-dom';
  
 ReactDOM.render(
  <BrowserRouter>
-   <App />
+   <PrivateExample />
  </BrowserRouter>,
  document.getElementById('root'),
 );
