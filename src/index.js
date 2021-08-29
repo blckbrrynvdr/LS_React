@@ -2,19 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { AuthProvider } from './context/auth';
-import { theme } from "loft-taxi-mui-theme"; 
-import { MuiThemeProvider } from "@material-ui/core/styles";
+import { Provider } from 'react-redux';
+import createStore from './store';
 
+const store = createStore();
 
-
-ReactDOM.render( 
-  <React.StrictMode>
-    <MuiThemeProvider theme={theme}>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
-    </MuiThemeProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root'),
 );
