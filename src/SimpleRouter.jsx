@@ -1,55 +1,38 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Route, Link, withRouter } from 'react-router-dom';
+import { Route, Link, Switch, Redirect } from 'react-router-dom';
  
-let Home = props => {
-  console.log(props);
-  return (
-    <>
-      <Link to="/about">About</Link>
-      <div>Home</div>
-    </>
-  );
-};
+const About = () => <div>About</div>;
+const Home = () => <div>Home</div>;
+const Topics = () => <div>Topics</div>;
  
-Home = withRouter(Home);
+const PageNotFound = () => <div>404 Not found</div>;
  
-const About = props => {
-  console.log(props);
-  return <div>About</div>;
-};
+const Ads = () => <div>Реклама</div>;
  
-const Topics = props => {
-  console.log(props);
-  return <div>Topics</div>;
-};
+class App extends Component {
+ render() {
+   return (
+     <div className="App">
+       <Link to="/">Home</Link>
+       <Link to="/about">About</Link>
+       <Link to="/topics">Topics</Link>
  
-class SimpleRouter extends Component {
-  state = {
-    userName: 'Maksim',
-  };
+       <hr />
  
-  render() {
-    const { userName } = this.state;
-    return (
-      <div className="App">
-        <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
-        <Link to="/topics">Topics</Link>
+       <Switch>
+         <Route path="/" component={Home} exact />
+         <Route path="/about" component={About} />
+         <Route path="/topics" component={Topics} />
+         <Route path="*" component={PageNotFound} />
+         <Redirect from="/about2" to="/about" />
+         <Redirect to="/" />
+       </Switch>
  
-        <hr />
-        <Route path="/" component={Home} exact />
-        <Route path="/home/:id" component={Home} />
-        <Route path="/about*" component={About} />
-        <Route
-          path="/topics"
-          render={props => (
-            <Topics {...props} userName={userName} />
-          )}
-        />
-      </div>
-    );
-  }
+       <Route path="/about" component={Ads} />
+     </div>
+   );
+ }
 }
  
-export default SimpleRouter;
+export default App;
