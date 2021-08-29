@@ -1,25 +1,44 @@
-import React from "react";
-import { HomeWithAuth } from "./pages/Home";
-import Welcome from "./pages/Welcome";
-import "./App.css";
-import { withAuth } from "./context/auth";
-import PropTypes from "prop-types";
-
-
-class App extends React.Component {
-
-  static propTypes = {
-    isLoggedIn: PropTypes.bool
+import React, { PureComponent } from 'react';
+import './App.css';
+ 
+class App extends PureComponent {
+  state = {
+    isLoading: false,
+    data: [],
+    error: null,
   }
-
+ 
+  componentDidMount() {
+    this.setState({ isLoading: true});
+    fetch('http://api.tvmaze.com/shows/180/episodes', { method: 'GET' })
+      .then(response => response.json())
+      .then(data => {
+        setTimeout(() => {
+          this.setState({ data, isLoading: false });
+        }, 1000);
+      })
+      .catch(error => {
+        this.setState({ error, isLoading: false});
+      });
+  }
+ 
   render() {
+    const { data, isLoading, error } = this.state;
+ 
+    if (isLoading) return <p>Данные загружаются...</p>;
+    if (error) return <p>Произошла сетевая ошибка</p>;
+ 
     return (
-      <>
-        {!this.props.isLoggedIn && <Welcome />}
-        {this.props.isLoggedIn && <HomeWithAuth />}
-      </>
+      <div>
+        <h1>Firefly</h1>
+        {data.map(ep => (
+          <div key={ep.id}>
+            {ep.image && <img src={ep.image.original} alt={ep.name} />}
+          </div>
+        ))}
+      </div>
     );
   }
 }
-
-export default withAuth(App);
+ 
+export default App;
