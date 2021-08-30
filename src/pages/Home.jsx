@@ -1,9 +1,10 @@
-import { React, Component } from "react";
-import Map from "../components/map/Map";
-import Profile from "../components/profile/Profile";
-import Nav from "../components/nav/Nav";
-import { withAuth } from "../context/auth";
-import PropTypes from "prop-types";
+import { React, Component } from 'react';
+import Map from '../components/map/Map';
+import Profile from '../components/profile/Profile';
+import Nav from '../components/nav/Nav';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { logOut } from '../store/actions/authorization';
 
 class Home extends Component {
 
@@ -52,5 +53,7 @@ class Home extends Component {
   }
 }
 
-export default Home;
-export const HomeWithAuth = withAuth(Home);
+export default connect(
+  null,
+  { logOut }
+)(Home);

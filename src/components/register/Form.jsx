@@ -1,9 +1,10 @@
 import { Component } from "react";
-import { withAuth } from "../../context/auth";
 import Input from "../input/Common";
 import { Button, Link } from "@material-ui/core";
 import PropTypes from "prop-types";
 import "./Form.css";
+import { connect } from 'react-redux';
+import { logIn } from '../../store/actions/authorization';
 
 class Form extends Component {
 
@@ -63,5 +64,7 @@ class Form extends Component {
   }
 };
 
-export default Form;
-export const RegisterFormWithAuth = withAuth(Form);
+export default connect(
+  (state) => ({isLoggedIn: state.auth.isLoggedIn}),
+  { logIn }
+)(Form);

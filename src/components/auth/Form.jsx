@@ -1,19 +1,19 @@
-import React, { useContext } from "react";
-import Input from "../input/Common";
-import { Button, Link } from "@material-ui/core";
-import { AuthContext } from '../../context/auth';
-import PropTypes from "prop-types";
-import "./Form.css";
+import React from 'react';
+import Input from '../input/Common';
+import { Button, Link } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import './Form.css';
+import { connect } from 'react-redux';
+import { logIn } from '../../store/actions/authorization';
 
 const Form = (props) => {
 
-  const {logIn} = useContext(AuthContext);
 
   const authenticate = (event) => {
     event.preventDefault();
     
     const { email, password } = event.target;
-    logIn(email.value, password.value)
+    props.logIn(email.value, password.value);
   }
 
     return (
@@ -54,4 +54,7 @@ Form.propTypes = {
   registerRoute: PropTypes.func
 }
 
-export default Form;
+export default connect(
+  (state) => ({isLoggedIn: state.auth.isLoggedIn}),
+  { logIn }
+)(Form);
