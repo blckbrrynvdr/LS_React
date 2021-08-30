@@ -4,7 +4,7 @@ import { Button, Link } from "@material-ui/core";
 import PropTypes from "prop-types";
 import "./Form.css";
 import { connect } from 'react-redux';
-import { logIn } from '../../store/actions/authorization';
+import { authenticate } from '../../store/actions/authorization';
 
 class Form extends Component {
 
@@ -17,7 +17,7 @@ class Form extends Component {
     event.preventDefault();
 
     const { email, password } = event.target;
-    this.props.logIn(email.value, password.value);
+    this.props.authenticate(email.value, password.value);
   }
 
   render () {
@@ -66,5 +66,5 @@ class Form extends Component {
 
 export default connect(
   (state) => ({isLoggedIn: state.auth.isLoggedIn}),
-  { logIn }
+  { authenticate }
 )(Form);

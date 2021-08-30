@@ -4,7 +4,7 @@ import { Button, Link } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import './Form.css';
 import { connect } from 'react-redux';
-import { logIn } from '../../store/actions/authorization';
+import { authenticate } from '../../store/actions/authorization';
 
 const Form = (props) => {
 
@@ -13,7 +13,7 @@ const Form = (props) => {
     event.preventDefault();
     
     const { email, password } = event.target;
-    props.logIn(email.value, password.value);
+    props.authenticate(email.value, password.value);
   }
 
     return (
@@ -56,5 +56,5 @@ Form.propTypes = {
 
 export default connect(
   (state) => ({isLoggedIn: state.auth.isLoggedIn}),
-  { logIn }
+  { authenticate }
 )(Form);
