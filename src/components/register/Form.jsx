@@ -1,6 +1,7 @@
 import { Component } from "react";
 import Input from "../input/Common";
-import { Button, Link } from "@material-ui/core";
+import { Button } from "@material-ui/core";
+import { Link } from 'react-router-dom';
 import PropTypes from "prop-types";
 import "./Form.css";
 import { connect } from 'react-redux';
@@ -55,7 +56,7 @@ class Form extends Component {
         </div>
         <div className="register-form__row register-form__newbee-line">
           Уже зарегестрированны?&nbsp;
-          <Link className="uncommon-link" color="primary" type="button" onClick={this.props.authRoute}>
+          <Link className="uncommon-link" color="primary" type="button" to="/">
             Войти
           </Link>
         </div>

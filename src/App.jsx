@@ -4,6 +4,8 @@ import Welcome from "./pages/Welcome";
 import "./App.css";
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
+import { Redirect, Route, Switch } from "react-router-dom";
+import { PrivateRoute } from "./PrivateRoute";
 
 
 class App extends React.Component {
@@ -15,8 +17,11 @@ class App extends React.Component {
   render() {
     return (
       <>
-        {!this.props.isLoggedIn && <Welcome />}
-        {this.props.isLoggedIn && <Home />}
+        <Switch>
+          <PrivateRoute path="/home" component={ Home } />
+          {this.props.isLoggedIn && <Redirect to="/home"/>}
+          <Route path="/" component={ Welcome } />
+        </Switch>
       </>
     );
   }
