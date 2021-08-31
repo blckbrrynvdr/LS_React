@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from "prop-types";
 import "./Form.css";
 import { connect } from 'react-redux';
-import { authenticate } from '../../store/actions/authorization';
+import { registration } from '../../store/actions/authorization';
 
 class Form extends Component {
 
@@ -14,16 +14,16 @@ class Form extends Component {
     logIn: PropTypes.func,
   }
 
-  authenticate = (event) => {
+  registration = (event) => {
     event.preventDefault();
-
-    const { email, password } = event.target;
-    this.props.authenticate(email.value, password.value);
+    const { email, password, name, surname } = event.target;
+    console.log('inform',email.value, password.value, name.value, surname.value);
+    this.props.registration(email.value, password.value, name.value, surname.value);
   }
 
   render () {
     return (
-      <form className="register-form common-form" onSubmit={this.authenticate}>
+      <form className="register-form common-form" onSubmit={this.registration}>
         <h2 className="register-form__title">Регистрация</h2>
         <Input
           id={"email"}
@@ -34,10 +34,17 @@ class Form extends Component {
         />
         <Input
           id={"name"}
-          labelText={"Как вас зовут?*"}
+          labelText={"Имя?*"}
           className={"register-form__row"}
           type={"text"}
           name={"name"}
+        />
+        <Input
+          id={"surname"}
+          labelText={"Фамилия?*"}
+          className={"register-form__row"}
+          type={"text"}
+          name={"surname"}
         />
         <Input
           id={"password"}
@@ -67,5 +74,5 @@ class Form extends Component {
 
 export default connect(
   (state) => ({isLoggedIn: state.auth.isLoggedIn}),
-  { authenticate }
+  { registration }
 )(Form);
