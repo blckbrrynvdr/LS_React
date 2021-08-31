@@ -38,9 +38,10 @@ class Home extends Component {
         <Nav buttons={navButtons} />
         <div className="home__sections">
           <Switch>
-            <Route exact path={this.props.match.url} component={Map} />
+            {/* <Route exact path={this.props.match.url} component={Map} /> */}
             <Route exact path={this.props.match.url + "/profile"} component={Profile} />
           </Switch>
+          <Map />
         </div>
       </div>
     );

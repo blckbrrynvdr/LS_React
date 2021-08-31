@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import mapboxgl from "mapbox-gl";
+import './Map.css';
 
 export default class Map extends Component {
   map = null;
