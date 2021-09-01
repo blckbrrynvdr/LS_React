@@ -1,5 +1,6 @@
 import { logIn, AUTHENCICATE, REGISTRATION } from '../actions/authorization';
-import { serverLogin, serverRegistration } from '../../api';
+import { getCardDataFromServer, serverLogin, serverRegistration } from '../../api';
+import { setCard } from '../actions/card';
 
 export const authMiddleware = (store) => (next) => async (action) => {
   switch (action.type) {
@@ -9,6 +10,17 @@ export const authMiddleware = (store) => (next) => async (action) => {
 
       if (data) {
         store.dispatch(logIn(data.token));
+
+        const cardData = await getCardDataFromServer(data.token);
+
+        if (cardData.hasOwnProperty('id')) {
+          store.dispatch(setCard(
+            cardData.cardNumber,
+            cardData.expiryDate,
+            cardData.cardName,
+            cardData.cvc
+          ));
+        }
       }
 
       break;

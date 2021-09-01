@@ -17,7 +17,7 @@ class Form extends Component {
   registration = (event) => {
     event.preventDefault();
     const { email, password, name, surname } = event.target;
-    console.log('inform',email.value, password.value, name.value, surname.value);
+   
     this.props.registration(email.value, password.value, name.value, surname.value);
   }
 
