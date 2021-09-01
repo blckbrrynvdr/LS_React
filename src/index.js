@@ -6,7 +6,7 @@ import { theme } from 'loft-taxi-mui-theme';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter } from 'react-router-dom';
 import { store } from './store/store';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
 
 
 ReactDOM.render( 

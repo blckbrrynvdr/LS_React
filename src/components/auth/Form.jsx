@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { authenticate } from '../../store/actions/authorization';
 
 
-const Form = (props) => {
+export const Form = (props) => {
 
   const authenticate = (event) => {
     event.preventDefault();

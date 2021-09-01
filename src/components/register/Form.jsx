@@ -7,7 +7,7 @@ import "./Form.css";
 import { connect } from 'react-redux';
 import { registration } from '../../store/actions/authorization';
 
-class Form extends Component {
+export class Form extends Component {
 
   static propTypes = {
     authRoute: PropTypes.func,
@@ -76,3 +76,4 @@ export default connect(
   (state) => ({isLoggedIn: state.auth.isLoggedIn}),
   { registration }
 )(Form);
+
