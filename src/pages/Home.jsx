@@ -1,11 +1,9 @@
-import { React, Component } from 'react';
-import Map from '../components/map/Map';
-import Profile from '../components/profile/Profile';
-import Nav from '../components/nav/Nav';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { logOut } from '../store/actions/authorization';
-import { Route, Switch } from 'react-router-dom';
+import { React, Component } from "react";
+import Map from "../components/map/Map";
+import Profile from "../components/profile/Profile";
+import Nav from "../components/nav/Nav";
+import { withAuth } from "../context/auth";
+import PropTypes from "prop-types";
 
 class Home extends Component {
 
@@ -13,22 +11,31 @@ class Home extends Component {
     logOut: PropTypes.func,
   }
 
+  state = {
+    link: "map",
+  };
+
+  goTo = (link) => {
+    this.setState({ link: link });
+  };
+
   render() {
     const navButtons = [
       {
         id: 1,
         name: "Карта",
-        link: "/home",
+        link: "map",
+        clickHandler: this.goTo,
       },
       {
         id: 2,
         name: "Профиль",
-        link: "/home/profile",
+        link: "profile",
+        clickHandler: this.goTo,
       },
       {
         id: 3,
         name: "Выйти",
-        link: "/",
         clickHandler: this.props.logOut,
       },
     ];
@@ -37,18 +44,13 @@ class Home extends Component {
       <div className="home">
         <Nav buttons={navButtons} />
         <div className="home__sections">
-          <Switch>
-            {/* <Route exact path={this.props.match.url} component={Map} /> */}
-            <Route exact path={this.props.match.url + "/profile"} component={Profile} />
-          </Switch>
-          <Map />
+          {this.state.link === "map" && <Map />}
+          {this.state.link === "profile" && <Profile />}
         </div>
       </div>
     );
   }
 }
 
-export default connect(
-  (state) => ({isLoggedIn: state.auth.isLoggedIn}),
-  { logOut }
-)(Home);
+export default Home;
+export const HomeWithAuth = withAuth(Home);

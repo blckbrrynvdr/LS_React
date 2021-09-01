@@ -1,14 +1,9 @@
 import React from "react";
-import Home from "./pages/Home";
+import { HomeWithAuth } from "./pages/Home";
 import Welcome from "./pages/Welcome";
 import "./App.css";
+import { withAuth } from "./context/auth";
 import PropTypes from "prop-types";
-import { connect } from 'react-redux';
-import { Redirect, Route, Switch } from "react-router-dom";
-import { PrivateRoute } from "./PrivateRoute";
-import { getCardData } from "./store/actions/card";
-import { logIn } from "./store/actions/authorization";
-
 
 class App extends React.Component {
 
@@ -16,34 +11,14 @@ class App extends React.Component {
     isLoggedIn: PropTypes.bool
   }
 
-  componentDidMount() {
-    if (this.props.token) {
-      this.props.getCardData(this.props.token);
-      this.props.logIn(this.props.token);
-    }
-  }
-
-
-
   render() {
     return (
       <>
-        <Switch>
-          <PrivateRoute path="/home" component={ Home } />
-          {this.props.isLoggedIn && <Redirect to="/home"/>}
-          <Route path="/" component={ Welcome } />
-        </Switch>
+        {!this.props.isLoggedIn && <Welcome />}
+        {this.props.isLoggedIn && <HomeWithAuth />}
       </>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  isLoggedIn: state.auth.isLoggedIn, 
-  token: state.auth.token
-})
-
-export default connect(
-  mapStateToProps,
-  { getCardData, logIn }
-)(App);
+export default withAuth(App);

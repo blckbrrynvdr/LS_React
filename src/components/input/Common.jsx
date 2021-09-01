@@ -3,11 +3,10 @@ import PropTypes from "prop-types";
 import "./Common.css";
 
 const CommonInput = (props) => {
-
   return (
     <div data-testid="root" className={`commonInput ${props.className}`}>
       <InputLabel className="commonInput__label" htmlFor={props.id} data-testid="label">{props.labelText}</InputLabel>
-      <Input className="commonInput__field" id={props.id} type={props.type} name={props.name} value={props.value} onInput={props.onInput} data-testid="input"/>
+      <Input className="commonInput__field" id={props.id} type={props.type} name={props.name} data-testid="input"/>
     </div>
   );
 };
