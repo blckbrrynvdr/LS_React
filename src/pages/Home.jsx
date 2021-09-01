@@ -1,37 +1,35 @@
-import { React, Component } from "react";
-import Map from "../components/map/Map";
-import Profile from "../components/profile/Profile";
-import Nav from "../components/nav/Nav";
+import { React, Component } from 'react';
+import Map from '../components/map/Map';
+import Profile from '../components/profile/Profile';
+import Nav from '../components/nav/Nav';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { logOut } from '../store/actions/authorization';
+import { Route, Switch } from 'react-router-dom';
 
 class Home extends Component {
-  state = {
-    link: "map",
-  };
 
-  pepa = "popo";
-
-  goTo = (link) => {
-    this.setState({ link: link });
-  };
+  static propTypes = {
+    logOut: PropTypes.func,
+  }
 
   render() {
     const navButtons = [
       {
         id: 1,
         name: "Карта",
-        link: "map",
-        clickHandler: this.goTo,
+        link: "/home",
       },
       {
         id: 2,
         name: "Профиль",
-        link: "profile",
-        clickHandler: this.goTo,
+        link: "/home/profile",
       },
       {
         id: 3,
         name: "Выйти",
-        clickHandler: this.props.logout,
+        link: "/",
+        clickHandler: this.props.logOut,
       },
     ];
 
@@ -39,12 +37,18 @@ class Home extends Component {
       <div className="home">
         <Nav buttons={navButtons} />
         <div className="home__sections">
-          {this.state.link === "map" && <Map navigate={this.goTo} />}
-          {this.state.link === "profile" && <Profile />}
+          <Switch>
+            {/* <Route exact path={this.props.match.url} component={Map} /> */}
+            <Route exact path={this.props.match.url + "/profile"} component={Profile} />
+          </Switch>
+          <Map />
         </div>
       </div>
     );
   }
 }
 
-export default Home;
+export default connect(
+  (state) => ({isLoggedIn: state.auth.isLoggedIn}),
+  { logOut }
+)(Home);

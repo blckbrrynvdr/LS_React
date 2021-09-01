@@ -1,0 +1,15 @@
+.commonInput__field {
+    width: 100%;
+}
+
+.commonInput__field input {
+    width: 100%;
+    color: #828282;
+}
+label.commonInput__label {
+    width: 100%;
+    color: #000000;
+    font-weight: 700;
+    line-height: 18px;
+    margin-bottom: 10px;
+}

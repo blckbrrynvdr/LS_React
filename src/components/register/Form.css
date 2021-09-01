@@ -1,0 +1,30 @@
+.register-form__title {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 57px;
+    text-align: center;
+}
+
+.register-form__row {
+    margin-bottom: 25px;
+    width: 355px;
+}
+
+.register-form__row_margin-bottom__small {
+    margin-bottom: 13px;
+}
+.register-form__row_margin-bottom__big {
+    margin-bottom: 50px;
+}
+.register-form__row_margin-bottom__medium {
+    margin-bottom: 33px;
+}
+
+.register-form__forgot-wrap {
+    text-align: right;
+}
+
+.register-form__newbee-line {
+    text-align: center;
+}
