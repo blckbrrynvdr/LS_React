@@ -1,19 +1,20 @@
-import React, { useContext } from "react";
-import Input from "../input/Common";
-import { Button, Link } from "@material-ui/core";
-import { AuthContext } from '../../context/auth';
-import PropTypes from "prop-types";
-import "./Form.css";
+import React from 'react';
+import Input from '../input/Common';
+import { Button } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import './Form.css';
+import { connect } from 'react-redux';
+import { authenticate } from '../../store/actions/authorization';
 
-const Form = (props) => {
 
-  const {logIn} = useContext(AuthContext);
+export const Form = (props) => {
 
   const authenticate = (event) => {
     event.preventDefault();
     
     const { email, password } = event.target;
-    logIn(email.value, password.value)
+    props.authenticate(email.value, password.value);
   }
 
     return (
@@ -34,14 +35,14 @@ const Form = (props) => {
           name={"password"}
         />
         <div className="auth-form__row auth-form__row_margin-bottom__big auth-form__forgot-wrap">
-          <Link className="common-link" color="primary" type="button">Забыли пароль?</Link>
+          <Link className="common-link" color="primary" type="button" to="/forgot">Забыли пароль?</Link>
         </div>
         <div className="auth-form__row auth-form__row_margin-bottom__medium">
           <Button className="button-common auth-form__button" color="primary" type="submit" data-testid="submitButton">Войти</Button>
         </div>
         <div className="auth-form__row auth-form__newbee-line">
           Новый пользователь?&nbsp;
-          <Link className="uncommon-link" color="primary" type="button" onClick={props.registerRoute}>
+          <Link className="uncommon-link" color="primary" type="button" to="/register">
             Регистрация
           </Link>
         </div>
@@ -54,4 +55,7 @@ Form.propTypes = {
   registerRoute: PropTypes.func
 }
 
-export default Form;
+export default connect(
+  (state) => ({isLoggedIn: state.auth.isLoggedIn}),
+  { authenticate }
+)(Form);
