@@ -1,12 +1,22 @@
 import { React, Component } from "react";
-import RegisterForm from "../components/register/Form";
+import { RegisterFormWithAuth } from "../components/register/Form";
 import Logo from "../components/logo/LoftTaxi";
 import AuthForm from '../components/auth/Form';
-import { Route, Switch } from "react-router-dom";
 
 class Welcome extends Component {
+  state = {
+    link: "login",
+  };
+
+  goTo = (link) => {
+    this.setState({ link: link });
+  };
 
   render() {
+    const components = {
+      login: <AuthForm registerRoute={() => this.goTo("register")} />,
+      register:  <RegisterFormWithAuth authRoute={() => this.goTo("login")} /> ,
+    };
 
     return (
       <>
@@ -15,10 +25,7 @@ class Welcome extends Component {
             <Logo />
           </div>
           <div className="welcome__container">
-            <Switch>
-              <Route exact path="/" component={ AuthForm } />
-              <Route exact path="/register" component={ RegisterForm } />
-            </Switch>
+            {components[this.state.link]}
           </div>
         </div>
       </>

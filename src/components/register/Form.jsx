@@ -1,29 +1,27 @@
 import { Component } from "react";
+import { withAuth } from "../../context/auth";
 import Input from "../input/Common";
-import { Button } from "@material-ui/core";
-import { Link } from 'react-router-dom';
+import { Button, Link } from "@material-ui/core";
 import PropTypes from "prop-types";
 import "./Form.css";
-import { connect } from 'react-redux';
-import { registration } from '../../store/actions/authorization';
 
-export class Form extends Component {
+class Form extends Component {
 
   static propTypes = {
     authRoute: PropTypes.func,
     logIn: PropTypes.func,
   }
 
-  registration = (event) => {
+  authenticate = (event) => {
     event.preventDefault();
-    const { email, password, name, surname } = event.target;
-   
-    this.props.registration(email.value, password.value, name.value, surname.value);
+
+    const { email, password } = event.target;
+    this.props.logIn(email.value, password.value);
   }
 
   render () {
     return (
-      <form className="register-form common-form" onSubmit={this.registration}>
+      <form className="register-form common-form" onSubmit={this.authenticate}>
         <h2 className="register-form__title">Регистрация</h2>
         <Input
           id={"email"}
@@ -34,17 +32,10 @@ export class Form extends Component {
         />
         <Input
           id={"name"}
-          labelText={"Имя?*"}
+          labelText={"Как вас зовут?*"}
           className={"register-form__row"}
           type={"text"}
           name={"name"}
-        />
-        <Input
-          id={"surname"}
-          labelText={"Фамилия?*"}
-          className={"register-form__row"}
-          type={"text"}
-          name={"surname"}
         />
         <Input
           id={"password"}
@@ -63,7 +54,7 @@ export class Form extends Component {
         </div>
         <div className="register-form__row register-form__newbee-line">
           Уже зарегестрированны?&nbsp;
-          <Link className="uncommon-link" color="primary" type="button" to="/">
+          <Link className="uncommon-link" color="primary" type="button" onClick={this.props.authRoute}>
             Войти
           </Link>
         </div>
@@ -72,8 +63,5 @@ export class Form extends Component {
   }
 };
 
-export default connect(
-  (state) => ({isLoggedIn: state.auth.isLoggedIn}),
-  { registration }
-)(Form);
-
+export default Form;
+export const RegisterFormWithAuth = withAuth(Form);
