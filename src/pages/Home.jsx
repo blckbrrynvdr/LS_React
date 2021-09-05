@@ -5,9 +5,14 @@ import Nav from '../components/nav/Nav';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logOut } from '../store/actions/authorization';
+import { getCardData } from "../store/actions/card";
 import { Route, Switch } from 'react-router-dom';
 
 class Home extends Component {
+
+  componentDidMount() {
+    this.props.getCardData(this.props.token);
+  }
 
   static propTypes = {
     logOut: PropTypes.func,
@@ -48,7 +53,12 @@ class Home extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  isLoggedIn: state.auth.isLoggedIn, 
+  token: state.auth.token
+})
+
 export default connect(
-  (state) => ({isLoggedIn: state.auth.isLoggedIn}),
-  { logOut }
+  mapStateToProps,
+  { logOut, getCardData }
 )(Home);

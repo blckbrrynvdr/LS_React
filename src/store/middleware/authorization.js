@@ -1,26 +1,14 @@
 import { logIn, AUTHENCICATE, REGISTRATION } from '../actions/authorization';
-import { getCardDataFromServer, serverLogin, serverRegistration } from '../../api';
-import { setCard } from '../actions/card';
+import { serverLogin, serverRegistration } from '../../api';
 
 export const authMiddleware = (store) => (next) => async (action) => {
   switch (action.type) {
     case AUTHENCICATE: {
       const { email, password } = action.payload;
       const data = await serverLogin(email, password);
-
-      if (data) {
+      
+      if (data.success) {
         store.dispatch(logIn(data.token));
-
-        const cardData = await getCardDataFromServer(data.token);
-
-        if (cardData.hasOwnProperty('id')) {
-          store.dispatch(setCard(
-            cardData.cardNumber,
-            cardData.expiryDate,
-            cardData.cardName,
-            cardData.cvc
-          ));
-        }
       }
 
       break;

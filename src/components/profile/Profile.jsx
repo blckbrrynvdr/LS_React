@@ -14,7 +14,7 @@ const Profile = (props) => {
   const inputHandler = (e) => {
     
     setCardData(
-      { 
+      {
         cardName: e.target.name === 'cardName' ? e.target.value : cardName,
         cardNumber: e.target.name === 'cardNumber' ? e.target.value : cardNumber,
         expiryDate: e.target.name === 'expiryDate' ? e.target.value : expiryDate,
