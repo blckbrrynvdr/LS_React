@@ -16,10 +16,10 @@ export const Form = (props) => {
     const { email, password } = event.target;
     props.authenticate(email.value, password.value);
   }
-
     return (
       <form className="auth-form common-form" onSubmit={authenticate}>
         <h2 className="auth-form__title">Войти</h2>
+        {props.error && <div style={{textAlign:'center',color:'red'}}>{props.error}</div>}
         <Input
           id={"email"}
           labelText={"Email:"}
@@ -55,7 +55,12 @@ Form.propTypes = {
   registerRoute: PropTypes.func
 }
 
+const mapStateToProps = (state) => ({
+  isLoggedIn: state.auth.isLoggedIn,
+  error: state.auth.logInError,
+})
+
 export default connect(
-  (state) => ({isLoggedIn: state.auth.isLoggedIn}),
+  mapStateToProps,
   { authenticate }
 )(Form);

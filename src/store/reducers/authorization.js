@@ -1,4 +1,4 @@
-import { LOG_IN, LOG_OUT } from "../actions/authorization";
+import { LOG_IN, LOG_OUT, LOG_IN_ERROR } from "../actions/authorization";
 import { getLoginDataFromLocalStorage, setLoginDataToLocalStorage } from '../../localstorage';
 
 const localSorageData = getLoginDataFromLocalStorage();
@@ -6,6 +6,7 @@ const localSorageData = getLoginDataFromLocalStorage();
 const initialState = {
   isLoggedIn: false,
   token: localSorageData.token,
+  error: null,
 }
 
 export default function authReducer (state = initialState, action) {
@@ -25,6 +26,14 @@ export default function authReducer (state = initialState, action) {
       return {
         isLoggedIn: false
       }
+    }
+
+    case LOG_IN_ERROR: {
+      return {
+        isLoggedIn: false,
+        token: '',
+        error: action.payload,
+      };
     }
 
     default:
