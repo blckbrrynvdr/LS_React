@@ -1,6 +1,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import Nav from "./Nav";
+import { BrowserRouter } from 'react-router-dom';
 
 describe("Nav", () => {
     it("renders correctly", () => {
@@ -23,7 +24,7 @@ describe("Nav", () => {
               clickHandler: () => {},
             },
           ];
-        const { container } = render(<Nav buttons={ buttons }/>);
+        const { container } = render(<BrowserRouter><Nav buttons={ buttons }/></BrowserRouter>);
  
         expect(container.innerHTML).toMatch("nav"); 
         
