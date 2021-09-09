@@ -2,9 +2,9 @@ export const SET_CARD = 'SET_CARD';
 export const PUSH_CARD_DATA = 'PUSH_CARD_DATA';
 export const GET_CARD_DATA = 'GET_CARD_DATA';
 
-export const setCard = (cardNumber, expiryDate, cardName, cvc) => ({
+export const setCard = (cardNumber, expiryDate, cardName, cvc, valid) => ({
     type: SET_CARD,
-    payload: { cardNumber, expiryDate, cardName, cvc },
+    payload: { cardNumber, expiryDate, cardName, cvc, valid },
 });
 
 

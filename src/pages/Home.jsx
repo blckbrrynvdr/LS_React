@@ -7,11 +7,14 @@ import { connect } from 'react-redux';
 import { logOut } from '../store/actions/authorization';
 import { getCardData } from "../store/actions/card";
 import { Route, Switch } from 'react-router-dom';
+import TaxiOrder from '../components/order/Taxi';
+import { getAddressList } from '../store/actions/adressList';
 
 class Home extends Component {
 
   componentDidMount() {
     this.props.getCardData(this.props.token);
+    this.props.getAddressList();
   }
 
   static propTypes = {
@@ -43,7 +46,7 @@ class Home extends Component {
         <Nav buttons={navButtons} />
         <div className="home__sections">
           <Switch>
-            {/* <Route exact path={this.props.match.url} component={Map} /> */}
+            {this.props.isCardValid && <Route exact path={this.props.match.url} component={TaxiOrder} />}
             <Route exact path={this.props.match.url + "/profile"} component={Profile} />
           </Switch>
           <Map />
@@ -55,10 +58,11 @@ class Home extends Component {
 
 const mapStateToProps = (state) => ({
   isLoggedIn: state.auth.isLoggedIn, 
-  token: state.auth.token
-})
+  token: state.auth.token,
+  isCardValid: state.card.valid,
+});
 
 export default connect(
   mapStateToProps,
-  { logOut, getCardData }
+  { logOut, getCardData, getAddressList }
 )(Home);

@@ -12,9 +12,9 @@ export default class Map extends Component {
     
     this.map = new mapboxgl.Map({
       container: this.mapContainer.current,
-      style: "mapbox://styles/mapbox/streets-v9",
+      style: "mapbox://styles/mapbox/streets-v11",
       center: [30.3056504, 59.9429126],
-      zoom: 10
+      zoom: 10,
     })
   }
 

@@ -9,6 +9,7 @@ const initialState = {
     expiryDate: localStorageData.expiryDate,
     cardName: localStorageData.cardName,
     cvc: localStorageData.cvc,
+    valid: false,
 };
 
 export default function card(state = initialState, action) {
@@ -21,7 +22,8 @@ export default function card(state = initialState, action) {
                 cardNumber: cardNumber,
                 expiryDate: expiryDate,
                 cardName: cardName,
-                cvc: cvc
+                cvc: cvc,
+                valid: true,
             };
         }
         default:

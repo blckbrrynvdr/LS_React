@@ -14,7 +14,7 @@ export function* pushCardSaga(action) {
     );
     
     if (success) {
-        yield put(setCard(cardNumber, expiryDate, cardName, cvc));
+        yield put(setCard(cardNumber, expiryDate, cardName, cvc, true));
     }
 }
 
@@ -23,7 +23,7 @@ export function* getCardSaga(action) {
     const data = yield call(getCardDataFromServer, token);
     
     if (data.hasOwnProperty('id')) {
-        yield put(setCard(data.cardNumber, data.expiryDate, data.cardName, data.cvc));
+        yield put(setCard(data.cardNumber, data.expiryDate, data.cardName, data.cvc, true));
     }
 }
 

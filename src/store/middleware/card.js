@@ -8,7 +8,7 @@ export const card = (store) => (next) => async (action) => {
             const { success } = await pushCardDataToServer(cardNumber, expiryDate, cardName, cvc, token);
             
             if (success) {
-                store.dispatch(setCard(cardNumber, expiryDate, cardName, cvc));
+                store.dispatch(setCard(cardNumber, expiryDate, cardName, cvc, true));
             }
             
             break;
@@ -19,7 +19,7 @@ export const card = (store) => (next) => async (action) => {
             const data = await getCardDataFromServer(token);
 
             if (data.hasOwnProperty('id')) {
-                store.dispatch(setCard(data.cardNumber, data.expiryDate, data.cardName, data.cvc))
+                store.dispatch(setCard(data.cardNumber, data.expiryDate, data.cardName, data.cvc, valid: true))
             }
             
             break;

@@ -10,9 +10,10 @@ describe("card reducer", () => {
       expiryDate: "test",
       cardName: "test",
       cvc: "test",
+      valid: true,
     };
     it('returns card state', () => {
-      expect(card({}, setCard("test","test","test", "test"))).toEqual(data)
+      expect(card({}, setCard("test","test","test", "test", true))).toEqual(data)
     })
   })
 

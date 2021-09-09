@@ -52,3 +52,8 @@ export const getCardDataFromServer = async (token) => {
   return fetch(`https://loft-taxi.glitch.me/card?token=${token}`)
     .then(res => res.json())
 }
+
+export const getAddressesFromServer = async () => {
+  return fetch(`https://loft-taxi.glitch.me/addressList`)
+    .then(res => res.json())
+}
