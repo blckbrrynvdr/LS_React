@@ -5,6 +5,7 @@ import { AUTHENCICATE, logIn, logInError, REGISTRATION } from '../actions/author
 export function* authenticateSaga(action) {
     const {email, password} = action.payload;
     const data = yield call(serverLogin, email, password);
+    
     if (data.success) {
         yield put(logIn(data.token));
     }
