@@ -1,12 +1,12 @@
-export const GET_ROUTE = 'GET_ROUTE';
-export const SET_ROUTE = 'SET_ROUTE';
+export const GET_ROUTES = 'GET_ROUTES';
+export const SET_ROUTES = 'SET_ROUTES';
 
-export const getRoute = (from, to) => ({
-    type: GET_ROUTE,
+export const getRoutes = (from, to) => ({
+    type: GET_ROUTES,
     payload: { from, to }
 });
 
-export const setRoute = (routes) => ({
-    type: SET_ROUTE,
+export const setRoutes = (routes) => ({
+    type: SET_ROUTES,
     payload: routes,
 });

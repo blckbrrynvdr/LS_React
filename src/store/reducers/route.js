@@ -1,12 +1,12 @@
-import { SET_ROUTE } from "../actions/route";
+import { SET_ROUTES } from "../actions/route";
 
 const initialState = {
-    addresses: [],
+  routes: [],
 };
 
 export default function routes(state = initialState, action) {
     switch (action.type) {
-        case SET_ROUTE: {
+        case SET_ROUTES: {
           const routes = action.payload;
     
           return {

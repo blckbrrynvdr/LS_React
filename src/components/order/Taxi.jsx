@@ -9,8 +9,8 @@ import { connect } from 'react-redux';
 import { Button } from '@material-ui/core';
 import GoogleInput from '../input/GoogleMaps';
 
+import { getRoutes } from '../../store/actions/route';
 
-import './Taxi.css';
 
 const useStyles = makeStyles({
     root: {
@@ -41,10 +41,6 @@ export const Taxi = (props) => {
     const [toAddresses, setToAddresses] = useState(initialAddresses);
     const [rideFrom, setRideFrom] = useState('');
     const [rideTo, setRideTo] = useState('');
-   
-    // useEffect(() => {
-    //   props.getAddressList();
-    // }, [])
 
     const handleChange = (e) => {
       const { value, name } = e.target;
@@ -71,15 +67,25 @@ export const Taxi = (props) => {
       }
     }
 
+    const submitHandler = async function (event) {
+      event.preventDefault();
+      const { rideFrom, rideTo } = event.target;
+      
+      if (initialAddresses.find(elem => elem.value === rideFrom.value)
+        && initialAddresses.find(elem => elem.value ===  rideTo.value)
+      ) {
+        props.getRoutes(rideFrom.value, rideTo.value);
+      }
+    }
+
     return(
         <div className={classes.root}>
-            <form action="" className="taxi-order__form">
+            <form action="" className="taxi-order__form" onSubmit={submitHandler}>
                 <div className={classes.inputRow}>
                   <GoogleInput
                     startIcon={<FiberManualRecordIcon />}
                     placeholder="Откуда поедете?"
                     addresses={fromAddresses}
-                    // addresses={addresses}
                     changeHandler={handleChange}
                     clear={handleClear}
                     value={rideFrom}
@@ -91,7 +97,6 @@ export const Taxi = (props) => {
                     startIcon={<NearMeTwoToneIcon />} 
                     placeholder="Куда поедете?"
                     addresses={toAddresses}
-                    // addresses={addresses}
                     changeHandler={handleChange}
                     clear={handleClear}
                     value={rideTo}
@@ -106,9 +111,11 @@ export const Taxi = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  addresses: state.addresses.addresses
-})
+  addresses: state.addresses.addresses,
+  routes: state.routes.routes,
+});
 
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  { getRoutes }
 )(Taxi);

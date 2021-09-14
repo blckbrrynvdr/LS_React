@@ -1,11 +1,50 @@
 import React, { Component } from "react";
 import mapboxgl from "mapbox-gl";
 import './Map.css';
+import { connect } from "react-redux";
 
-export default class Map extends Component {
+export class Map extends Component {
   map = null;
 
   mapContainer = React.createRef();
+
+  drawRoute = (map, coordinates) => {
+    map.flyTo({
+      center: coordinates[0],
+      zoom: 15
+    });
+
+    const layerId = "route";
+    
+    if (map.getLayer(layerId)) {
+      map.removeLayer(layerId);
+      map.removeSource(layerId);
+    }
+  
+    map.addLayer({
+      id: layerId,
+      type: "line",
+      source: {
+        type: "geojson",
+        data: {
+          type: "Feature",
+          properties: {},
+          geometry: {
+            type: "LineString",
+            coordinates
+          }
+        }
+      },
+      layout: {
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      paint: {
+        "line-color": "#ffc617",
+        "line-width": 8
+      }
+    });
+  };
 
   componentDidMount() {
     mapboxgl.accessToken = "pk.eyJ1IjoiYmxja2JycnludmRyIiwiYSI6ImNrc292b3dhazByaWEycG1vOXc1N3ltYm0ifQ.EtOQILHCgpf2sydJU9vFsA";
@@ -16,6 +55,12 @@ export default class Map extends Component {
       center: [30.3056504, 59.9429126],
       zoom: 10,
     })
+  }
+
+  componentDidUpdate() {
+    if (this.props.routes.length > 0) {
+      this.drawRoute(this.map, this.props.routes);
+    }
   }
 
   componentWillUnmount() {
@@ -30,3 +75,11 @@ export default class Map extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  routes: state.routes.routes,
+})
+
+export default connect(
+  mapStateToProps
+)(Map);

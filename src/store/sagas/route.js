@@ -1,15 +1,16 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
-import { GET_ROUTE, setRoute } from '../actions/route';
+import { GET_ROUTES, setRoutes } from '../actions/route';
 import { getRoutesFromServer } from '../../api';
 
-export function* getRoutesListSaga() {
-    const data = yield call(getRoutesFromServer);
+export function* getRoutesListSaga(action) {
+    const { from, to } = action.payload;
+    const data = yield call(getRoutesFromServer, from, to);
     
-    if (data.routes) {
-        yield put(setRoute(data.routes));
+    if (data) {
+        yield put(setRoutes(data));
     }
 }
 
 export function* routesSaga() {
-    yield takeEvery(GET_ROUTE, getRoutesListSaga);
+    yield takeEvery(GET_ROUTES, getRoutesListSaga);
 }
