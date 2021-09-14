@@ -57,7 +57,7 @@ Form.propTypes = {
 
 const mapStateToProps = (state) => ({
   isLoggedIn: state.auth.isLoggedIn,
-  error: state.auth.logInError,
+  error: state.auth.error,
 })
 
 export default connect(
