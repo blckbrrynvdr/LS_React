@@ -1,6 +1,8 @@
+const serverDomain = 'https://loft-taxi.glitch.me';
+
 export const serverLogin = async (email, password) => {
   return fetch(
-    `https://loft-taxi.glitch.me/auth`,
+    `${serverDomain}/auth`,
     {
         method: 'POST',
         body: JSON.stringify({
@@ -16,7 +18,7 @@ export const serverLogin = async (email, password) => {
 
 export const serverRegistration = async (email, password, name, surname) => {
   return fetch(
-    `https://loft-taxi.glitch.me/register`,
+    `${serverDomain}/register`,
     {
         method: 'POST',
         body: JSON.stringify({
@@ -33,7 +35,7 @@ export const serverRegistration = async (email, password, name, surname) => {
 }
 
 export const pushCardDataToServer = async (cardNumber, expiryDate, cardName, cvc, token) => {
-  return fetch('https://loft-taxi.glitch.me/card', {
+  return fetch(`${serverDomain}/card`, {
     method: 'POST',
     body: JSON.stringify({
       'cardNumber': cardNumber,
@@ -49,11 +51,16 @@ export const pushCardDataToServer = async (cardNumber, expiryDate, cardName, cvc
 }
 
 export const getCardDataFromServer = async (token) => {
-  return fetch(`https://loft-taxi.glitch.me/card?token=${token}`)
+  return fetch(`${serverDomain}/card?token=${token}`)
     .then(res => res.json())
 }
 
 export const getAddressesFromServer = async () => {
-  return fetch(`https://loft-taxi.glitch.me/addressList`)
+  return fetch(`${serverDomain}/addressList`)
+    .then(res => res.json())
+}
+
+export const getRoutesFromServer = async (from, to) => {
+  return fetch(`${serverDomain}/route?address1=${from}&address2=${to}`)
     .then(res => res.json())
 }

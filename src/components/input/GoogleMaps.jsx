@@ -78,7 +78,7 @@ export default function CustomizedInputBase(props) {
             {props.placeholder}
           </MenuItem>
           {props.addresses.map((elem) => 
-            (<MenuItem key={elem.id} value={elem.value}>{elem.id + 1} {elem.value}</MenuItem>)
+            (<MenuItem key={elem.id} value={elem.value}>{elem.value}</MenuItem>)
           )}
         </Select>
       <IconButton type="button" onClick={() => {props.clear(props.name)}} className={classes.iconButton} aria-label="search">
