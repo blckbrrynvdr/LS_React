@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { connect } from 'react-redux';
 
 import { Button } from '@material-ui/core';
-import GoogleInput from '../input/GoogleMaps';
+import GoogleInput from '../input/GoogleInput';
 
 import { getRoutes } from '../../store/actions/route';
 
