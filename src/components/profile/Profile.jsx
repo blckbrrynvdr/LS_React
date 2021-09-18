@@ -4,10 +4,13 @@ import './Profile.css';
 import { connect } from 'react-redux';
 import { pushCardData } from '../../store/actions/card';
 import { useForm } from 'react-hook-form';
+import logoSimple from '../../assets/img/logo-simple.svg';
+import cardChip from '../../assets/img/card-chip.svg';
+import cardPaySystem from '../../assets/img/card-pay-system.svg';
 
 const Profile = (props) => {
 
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors }, watch } = useForm();
 
   const { cardName, cardNumber, expiryDate, cvc } = props.card;
 
@@ -15,6 +18,10 @@ const Profile = (props) => {
     const { cardName, cardNumber, expiryDate, cvc } = data;
     props.pushCardData(cardNumber, expiryDate, cardName, cvc, props.token);
   }
+
+  const watchExpiryDate = watch("expiryDate");
+  const watchCardNumber = watch("cardNumber");
+  const watchCardName = watch("cardName");
 
   return (
     <div className="profile">
@@ -117,6 +124,30 @@ const Profile = (props) => {
                   error={!!errors.cvc}
                   helperText={errors.cvc && errors.cvc.message}
                 />
+              </div>
+            </div>
+          </div>
+          <div className="profile__col">
+            <div className="profile__card card">
+              <div className="card__head">
+                <div className="card__logo">
+                  <img src={logoSimple} alt="logo" className="card__logo-pic img-fluid" />
+                </div>
+                <div className="card__date">{watchExpiryDate ?? expiryDate}</div>
+              </div>
+              <div className="card__body">
+                {watchCardNumber ?? cardNumber}
+              </div>
+              <div className="card__footer">
+                <div className="card__chip-wrap">
+                  <img src={cardChip} alt="chip" className="card__chip-logo img-fluid" />
+                </div>
+                <div className="card__name">
+                  {watchCardName ?? cardName}
+                </div>
+                <div className="card__pay-wrap">
+                  <img src={cardPaySystem} alt="pay system" className="card__chip-logo img-fluid" />
+                </div>
               </div>
             </div>
           </div>
