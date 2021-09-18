@@ -16,11 +16,11 @@ const CommonInput = forwardRef((props, ref) => {
       </InputLabel>
       <Input 
         className="commonInput__field" 
-        id={props.id} 
-        type={props.type} 
-        name={props.name} 
-        value={props.value} 
-        onInput={props.onInput} 
+        id={props.id}
+        type={props.type}
+        name={props.name}
+        value={props.value}
+        onInput={props.onInput}
         inputRef={ref}
         onChange={props.onChange}
         data-testid="input"

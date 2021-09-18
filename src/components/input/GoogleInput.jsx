@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
+import { IconButton, FormHelperText } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
 
@@ -56,10 +56,13 @@ const useStyles = makeStyles((theme) => ({
     transform: "translateY(-50%)",
     display: "flex",
     alignItems: "center",
+  },
+  helperText: {
+    bottom: "-1.5em",
   }
 }));
 
-export default function CustomizedInputBase(props) {
+const GoogleInput = forwardRef((props,ref) => {
   const classes = useStyles();
  
 
@@ -70,14 +73,26 @@ export default function CustomizedInputBase(props) {
         <select 
           className={classes.select} 
           name={props.name}
-          onChange={props.changeHandler}
+          onChange={(e) => {
+            props.onChange(e);
+            props.changeHandler(e);
+          }}
           value={props.value}
+          ref={ref}
         >
           <option value="">{props.placeholder}</option>
           {props.addresses.map((elem) => 
             (<option key={elem.id} value={elem.value}>{elem.value}</option>)
           )}
         </select>
+        {props.helperText && 
+          <FormHelperText 
+            error={props.error} 
+            id="my-helper-text"
+            className={classes.helperText}
+          >
+            {props.helperText}
+          </FormHelperText>}
         <div className={classes.buttons}>
           <IconButton type="button" onClick={() => {props.clear(props.name)}} className={classes.iconButton} aria-label="search">
             <CloseIcon color="disabled"/>
@@ -86,4 +101,6 @@ export default function CustomizedInputBase(props) {
         </div>
     </Paper>
   );
-}
+});
+
+export default GoogleInput;
