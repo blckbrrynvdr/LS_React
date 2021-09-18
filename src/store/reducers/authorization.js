@@ -1,5 +1,5 @@
 import { LOG_IN, LOG_OUT, LOG_IN_ERROR } from "../actions/authorization";
-import { getLoginDataFromLocalStorage, setLoginDataToLocalStorage } from '../../localstorage';
+import { getLoginDataFromLocalStorage, setCardDataToLocalStorage, setLoginDataToLocalStorage } from '../../localstorage';
 
 const localSorageData = getLoginDataFromLocalStorage();
 
@@ -22,6 +22,7 @@ export default function authReducer (state = initialState, action) {
     }
     case LOG_OUT: {
       setLoginDataToLocalStorage(false, '');
+      setCardDataToLocalStorage('','','','',false);
 
       return {
         isLoggedIn: false

@@ -3,37 +3,22 @@ import { Button } from "@material-ui/core";
 import './Profile.css';
 import { connect } from 'react-redux';
 import { pushCardData } from '../../store/actions/card';
-import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 const Profile = (props) => {
-  
-  const [cardData, setCardData] = useState(props.card)
-  
-  const { cardName, cardNumber, expiryDate, cvc } = cardData;
 
-  const inputHandler = (e) => {
-    
-    setCardData(
-      {
-        cardName: e.target.name === 'cardName' ? e.target.value : cardName,
-        cardNumber: e.target.name === 'cardNumber' ? e.target.value : cardNumber,
-        expiryDate: e.target.name === 'expiryDate' ? e.target.value : expiryDate,
-        cvc: e.target.name === 'cvc' ? e.target.value : cvc,
-      }
-    )
-  }
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
-  const saveCard = (event) => {
-    event.preventDefault();
-    const { cardName, cardNumber, expiryDate, cvc } = event.target;
-    
-   props.pushCardData(cardNumber.value, expiryDate.value, cardName.value, cvc.value, props.token);
+  const { cardName, cardNumber, expiryDate, cvc } = props.card;
 
+  const saveCard = (data) => {
+    const { cardName, cardNumber, expiryDate, cvc } = data;
+    props.pushCardData(cardNumber, expiryDate, cardName, cvc, props.token);
   }
 
   return (
     <div className="profile">
-      <form className="profile__box" onSubmit={saveCard}>
+      <form className="profile__box" onSubmit={handleSubmit(saveCard)}>
         <div className="profile__head">
           <h1 className="profile__title">Профиль</h1>
           <div className="profile__subtitle">Ввдеите платежные данные</div>
@@ -47,8 +32,16 @@ const Profile = (props) => {
                 className={'profile__input'}
                 type={'text'}
                 name={'cardName'}
-                value={cardName}
-                onInput={inputHandler}
+                defaultValue={cardName}
+                {...register("cardName", {
+                  required: 'Обязательное поле',
+                  minLength: {
+                    value: 4,
+                    message: "Имя владельца должно быть больше 4 символов"
+                  },
+                })}
+                error={!!errors.cardName}
+                helperText={errors.cardName && errors.cardName.message}
               />
             </div>
             <div className="profile__inputRow">
@@ -58,8 +51,16 @@ const Profile = (props) => {
                 className={'profile__input'}
                 type={'text'}
                 name={'cardNumber'}
-                value={cardNumber}
-                onInput={inputHandler}
+                defaultValue={cardNumber}
+                {...register("cardNumber", {
+                  required: 'Обязательное поле',
+                  minLength: {
+                    value: 16,
+                    message: "Номер карты должен быть больше 16 символов"
+                  },
+                })}
+                error={!!errors.cardNumber}
+                helperText={errors.cardNumber && errors.cardNumber.message}
               />
             </div>
             <div className="profile__inputRow">
@@ -70,8 +71,24 @@ const Profile = (props) => {
                   className={'profile__input'}
                   type={'text'}
                   name={'expiryDate'}
-                  value={expiryDate} 
-                  onInput={inputHandler}
+                  defaultValue={expiryDate}
+                  {...register("expiryDate", {
+                    required: 'Обязательное поле',
+                    minLength: {
+                      value: 5,
+                      message: "Поле из 5 символов"
+                    },
+                    maxLength: {
+                      value: 5,
+                      message: "Поле из 5 символов"
+                    },
+                    pattern: {
+                      value: /^[0-9]{2}\/[0-9]{2}$/i,
+                      message: "Некорректные данные"
+                    }
+                  })}
+                  error={!!errors.expiryDate}
+                  helperText={errors.expiryDate && errors.expiryDate.message}
                 />
               </div>
               <div className="profile__inputCol">
@@ -81,8 +98,24 @@ const Profile = (props) => {
                   className={'profile__input'}
                   type={'text'}
                   name={'cvc'}
-                  value={cvc}
-                  onInput={inputHandler}
+                  defaultValue={cvc}
+                  {...register("cvc", {
+                    required: 'Обязательное поле',
+                    minLength: {
+                      value: 3,
+                      message: "Поле из 3 символов"
+                    },
+                    maxLength: {
+                      value: 5,
+                      message: "Поле из 3 символов"
+                    },
+                    pattern: {
+                      value: /^[0-9]{3}$/i,
+                      message: "Некорректный cvc"
+                    }
+                  })}
+                  error={!!errors.cvc}
+                  helperText={errors.cvc && errors.cvc.message}
                 />
               </div>
             </div>
