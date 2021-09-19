@@ -9,6 +9,7 @@
 .auth-form__row {
     margin-bottom: 25px;
     width: 355px;
+    position: relative;
 }
 
 .auth-form__row_margin-bottom__small {

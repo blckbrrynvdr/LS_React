@@ -1,3 +1,8 @@
+.commonInput {
+    position: relative;
+    padding-bottom: 5px;
+}
+
 .commonInput__field {
     width: 100%;
 }

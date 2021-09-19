@@ -1,7 +1,5 @@
-import card from './card'
-import {
-  setCard
-} from '../actions/card'
+import card from '../card'
+import { setCard } from '../../actions/card'
 
 describe("card reducer", () => {
   describe("SET_CARD", () => {
@@ -14,8 +12,7 @@ describe("card reducer", () => {
     };
     it('returns card state', () => {
       expect(card({}, setCard("test","test","test", "test", true))).toEqual(data)
-    })
-  })
+    });
+  });
 
-
-})
+});

@@ -1,15 +1,13 @@
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import NearMeTwoToneIcon from '@material-ui/icons/NearMeTwoTone';
 import { makeStyles } from "@material-ui/core/styles";
-
 import { useState } from 'react';
-
 import { connect } from 'react-redux';
-
 import { Button } from '@material-ui/core';
-import GoogleInput from '../input/GoogleMaps';
-
+import GoogleInput from '../input/GoogleInput';
 import { getRoutes } from '../../store/actions/route';
+
+import { useForm } from 'react-hook-form';
 
 
 const useStyles = makeStyles({
@@ -25,7 +23,10 @@ const useStyles = makeStyles({
         borderRadius: '10px',
     },
     inputRow: {
-        marginBottom: '10px',
+        marginBottom: '15px',
+    },
+    btn: {
+      marginTop: "20px",
     }
 });
 
@@ -33,54 +34,44 @@ const useStyles = makeStyles({
 export const Taxi = (props) => {
     const classes = useStyles();
 
+    const { register, handleSubmit, formState: { errors }, setValue } = useForm();
+
     const initialAddresses = props.addresses.reduce((acc, current, index) => {
       return [...acc, {id: index, value: current}]
     },[]);
 
     const [fromAddresses, setFromAddresses] = useState(initialAddresses);
     const [toAddresses, setToAddresses] = useState(initialAddresses);
-    const [rideFrom, setRideFrom] = useState('');
-    const [rideTo, setRideTo] = useState('');
 
     const handleChange = (e) => {
       const { value, name } = e.target;
       
       if (name === 'rideFrom') {
-        setRideFrom(value);
         setToAddresses(initialAddresses.filter(elem => elem.value !== value));
       }
       if (name === 'rideTo') {
-        setRideTo(value);
         setFromAddresses(initialAddresses.filter(elem => elem.value !== value));
       }
     }
 
     const handleClear = function (name)  {
-      
-      if (name === 'rideFrom') {
-        setRideFrom('');
-        setToAddresses(initialAddresses);
-      }
-      if (name === 'rideTo') {
-        setRideTo('');
-        setFromAddresses(initialAddresses);
-      }
+      setValue(name, '', { shouldDirty: true });
+      setToAddresses(initialAddresses);
     }
 
-    const submitHandler = async function (event) {
-      event.preventDefault();
-      const { rideFrom, rideTo } = event.target;
+    const submitHandler = async function (data) {
+      const { rideFrom, rideTo } = data;
       
-      if (initialAddresses.find(elem => elem.value === rideFrom.value)
-        && initialAddresses.find(elem => elem.value ===  rideTo.value)
+      if (initialAddresses.find(elem => elem.value === rideFrom)
+        && initialAddresses.find(elem => elem.value ===  rideTo)
       ) {
-        props.getRoutes(rideFrom.value, rideTo.value);
+        props.getRoutes(rideFrom, rideTo);
       }
     }
 
     return(
         <div className={classes.root}>
-            <form action="" className="taxi-order__form" onSubmit={submitHandler}>
+            <form action="" className="taxi-order__form" onSubmit={handleSubmit(submitHandler)}>
                 <div className={classes.inputRow}>
                   <GoogleInput
                     startIcon={<FiberManualRecordIcon />}
@@ -88,8 +79,12 @@ export const Taxi = (props) => {
                     addresses={fromAddresses}
                     changeHandler={handleChange}
                     clear={handleClear}
-                    value={rideFrom}
                     name="rideFrom"
+                    {...register("rideFrom", {
+                      required: 'Обязательное поле',
+                    })}
+                    error={!!errors.rideFrom}
+                    helperText={errors.rideFrom && errors.rideFrom.message}
                   />
                 </div>
                 <div className={classes.inputRow}>
@@ -99,11 +94,15 @@ export const Taxi = (props) => {
                     addresses={toAddresses}
                     changeHandler={handleChange}
                     clear={handleClear}
-                    value={rideTo}
                     name="rideTo"
+                    {...register("rideTo", {
+                      required: 'Обязательное поле',
+                    })}
+                    error={!!errors.rideTo}
+                    helperText={errors.rideTo && errors.rideTo.message}
                   />
                 </div>
-                <Button className="button-common auth-form__button" color="primary" type="submit" data-testid="submitButton">Заказать</Button>
+                <Button className={`button-common auth-form__button ${classes.btn}`} color="primary" type="submit" data-testid="submitButton">Заказать</Button>
 
             </form>
         </div>

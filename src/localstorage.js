@@ -16,8 +16,8 @@ export const getLoginDataFromLocalStorage = () => {
   return JSON.parse(localStorage.getItem('loginData'))
 }
 
-export const setCardDataToLocalStorage = (cardNumber, expiryDate, cardName, cvc) => {
-  localStorage.setItem('cardData', JSON.stringify({ cardNumber, expiryDate, cardName, cvc, valid: true }));
+export const setCardDataToLocalStorage = (cardNumber, expiryDate, cardName, cvc, valid = true) => {
+  localStorage.setItem('cardData', JSON.stringify({ cardNumber, expiryDate, cardName, cvc, valid }));
 }
 
 export const getCardDataFromLocalStorage = () => {
