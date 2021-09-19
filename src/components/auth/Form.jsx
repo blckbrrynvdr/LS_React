@@ -4,18 +4,19 @@ import { Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './Form.css';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { authenticate } from '../../store/actions/authorization';
 import { useForm } from 'react-hook-form';
 
 
-export const Form = (props) => {
+export const Form = ({useDispatchHook = useDispatch, ...props}) => {
 
+  const dispatch = useDispatchHook();
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = (data) => {
     const { email, password } = data;
-    props.authenticate(email, password);
+    dispatch(authenticate(email, password));
   }
     return (
       <form className="auth-form common-form" onSubmit={handleSubmit(onSubmit)}>
@@ -84,6 +85,5 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(
-  mapStateToProps,
-  { authenticate }
+  mapStateToProps
 )(Form);

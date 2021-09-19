@@ -2,22 +2,22 @@ import Input from "../input/Common";
 import { Button } from "@material-ui/core";
 import { Link } from 'react-router-dom';
 import "./Form.css";
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { registration } from '../../store/actions/authorization';
 import { useForm } from 'react-hook-form';
 
-export const Form = (props) => {
-
+export const Form = ({useDispatchHook = useDispatch}, ...props) => {
+  const dispatch = useDispatchHook();
   const { register, handleSubmit, formState: { errors } } = useForm();
 
-  const registration = (data) => {
+  const submitHandler = (data) => {
     const { email, password, name, surname } = data;
    
-    props.registration(email, password, name, surname);
+    dispatch(registration(email, password, name, surname));
   }
 
   return (
-    <form className="register-form common-form" onSubmit={handleSubmit(registration)}>
+    <form className="register-form common-form" onSubmit={handleSubmit(submitHandler)}>
       <h2 className="register-form__title">Регистрация</h2>
       <Input
         id={"email"}
@@ -106,7 +106,6 @@ export const Form = (props) => {
   };
 
 export default connect(
-  (state) => ({isLoggedIn: state.auth.isLoggedIn}),
-  { registration }
+  (state) => ({isLoggedIn: state.auth.isLoggedIn})
 )(Form);
 

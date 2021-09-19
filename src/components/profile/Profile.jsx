@@ -1,22 +1,24 @@
 import Input from '../input/Common';
 import { Button } from "@material-ui/core";
 import './Profile.css';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { pushCardData } from '../../store/actions/card';
 import { useForm } from 'react-hook-form';
 import logoSimple from '../../assets/img/logo-simple.svg';
 import cardChip from '../../assets/img/card-chip.svg';
 import cardPaySystem from '../../assets/img/card-pay-system.svg';
 
-const Profile = (props) => {
+export const Profile = ({useDispatchHook = useDispatch, ...props}) => {
+
+  const dispatch = useDispatchHook();
 
   const { register, handleSubmit, formState: { errors }, watch } = useForm();
 
-  const { cardName, cardNumber, expiryDate, cvc } = props.card;
+  const { cardName, cardNumber, expiryDate, cvc } = props.card || {};
 
   const saveCard = (data) => {
     const { cardName, cardNumber, expiryDate, cvc } = data;
-    props.pushCardData(cardNumber, expiryDate, cardName, cvc, props.token);
+    dispatch(pushCardData(cardNumber, expiryDate, cardName, cvc, props.token));
   }
 
   const watchExpiryDate = watch("expiryDate");
@@ -34,11 +36,11 @@ const Profile = (props) => {
           <div className="profile__col">
             <div className="profile__inputRow">
               <Input
-                id={'name'}
+                id={'cardName'}
                 labelText={'Имя владельца'}
                 className={'profile__input'}
                 type={'text'}
-                name={'cardName'}
+                name="cardName"
                 defaultValue={cardName}
                 {...register("cardName", {
                   required: 'Обязательное поле',
@@ -53,11 +55,11 @@ const Profile = (props) => {
             </div>
             <div className="profile__inputRow">
               <Input
-                id={'name'}
+                id={'cardNumber'}
                 labelText={'Номер карты'}
                 className={'profile__input'}
                 type={'text'}
-                name={'cardNumber'}
+                name="cardNumber"
                 defaultValue={cardNumber}
                 {...register("cardNumber", {
                   required: 'Обязательное поле',
@@ -73,11 +75,11 @@ const Profile = (props) => {
             <div className="profile__inputRow">
               <div className="profile__inputCol">
                 <Input
-                  id={'name'}
+                  id={'cardExpiryDate'}
                   labelText={'MM/YY'}
                   className={'profile__input'}
                   type={'text'}
-                  name={'expiryDate'}
+                  name="expiryDate"
                   defaultValue={expiryDate}
                   {...register("expiryDate", {
                     required: 'Обязательное поле',
@@ -100,11 +102,11 @@ const Profile = (props) => {
               </div>
               <div className="profile__inputCol">
                 <Input
-                  id={'name'}
+                  id={'cardCvc'}
                   labelText={'CVC'}
                   className={'profile__input'}
                   type={'text'}
-                  name={'cvc'}
+                  name="cvc"
                   defaultValue={cvc}
                   {...register("cvc", {
                     required: 'Обязательное поле',
@@ -166,6 +168,5 @@ const Profile = (props) => {
 };
 
 export default connect(
-  state => ({token: state.auth.token, card: state.card}),
-  { pushCardData }
+  state => ({token: state.auth.token, card: state.card})
 )(Profile);
