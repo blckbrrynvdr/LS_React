@@ -1,6 +1,6 @@
 import { SET_ADDRESS_LIST } from "../actions/adressList";
 
-const initialState = {
+export const initialState = {
   addresses: []
 }
 

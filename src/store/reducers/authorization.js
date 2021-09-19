@@ -3,7 +3,7 @@ import { getLoginDataFromLocalStorage, setCardDataToLocalStorage, setLoginDataTo
 
 const localSorageData = getLoginDataFromLocalStorage();
 
-const initialState = {
+export const initialState = {
   isLoggedIn: false,
   token: localSorageData.token,
   error: null,
@@ -16,6 +16,7 @@ export default function authReducer (state = initialState, action) {
       setLoginDataToLocalStorage(true, action.payload.token);
 
       return {
+        ...state,
         isLoggedIn: true,
         token: action.payload.token
       }
@@ -25,6 +26,7 @@ export default function authReducer (state = initialState, action) {
       setCardDataToLocalStorage('','','','',false);
 
       return {
+        ...state,
         isLoggedIn: false
       }
     }
